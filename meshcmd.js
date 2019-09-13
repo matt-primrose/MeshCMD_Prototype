@@ -48,6 +48,7 @@ var SMBiosTables = null;
 var globalDebugFlags = 0; // 1 = IDER Debug
 var pendingAmtConfigActions = 0;
 const RCSMessageProtocolVersion = 1; // RCS Message Protocol Version.  Needs to be less than or equal to RCS server Message Protocol Version
+const AMTUnconfigureTimeout = 30000;
 
 // MeshCommander for Firmware (GZIP'ed, Base64) v0.7.8
 var Large_IntelAmtWebApp_etag = "zVObfGF4CXPIxvxSUu+3";
@@ -1155,7 +1156,7 @@ function activeToACMEx(fwNonce, dnsSuffix, digestRealm, uuid, allowedModes) {
                             if (status == 0) {
                                 console.log('Intel AMT CCM deactivated, holding 10 seconds...');
                                 // We are ready to go, perform ACM activation.
-                                settings.xxTimer = setTimeout(function () { performAcmActivation(cmd, AcmActivationCompleted); }, 10000);
+                                settings.xxTimer = setTimeout(function () { performAcmActivation(cmd, AcmActivationCompleted); }, AMTUnconfigureTimeout);
                             } else {
                                 console.log('Intel AMT CCM deactivation error ' + status); exit(1); return;
                             }
@@ -1178,7 +1179,7 @@ function activeToACMEx(fwNonce, dnsSuffix, digestRealm, uuid, allowedModes) {
                             if (status == 0) {
                                 console.log('Intel AMT CCM deactivated, holding 10 seconds...');
                                 // We are ready to go, perform CCM activation.
-                                settings.xxTimer = setTimeout(function () { osamtstack.IPS_HostBasedSetupService_Setup(2, cmd.password, null, null, null, null, performCcmActivation); }, 10000);
+                                settings.xxTimer = setTimeout(function () { osamtstack.IPS_HostBasedSetupService_Setup(2, cmd.password, null, null, null, null, performCcmActivation); }, AMTUnconfigureTimeout);
                             } else {
                                 console.log('Intel AMT CCM deactivation error ' + status); exit(1); return;
                             }
