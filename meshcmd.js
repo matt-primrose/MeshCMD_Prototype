@@ -1154,7 +1154,7 @@ function activeToACMEx(fwNonce, dnsSuffix, digestRealm, uuid, allowedModes) {
                     if (mestate.controlMode == 1) {
                         amtMei.unprovision(1, function (status) {
                             if (status == 0) {
-                                console.log('Intel AMT CCM deactivated, holding 10 seconds...');
+                                console.log('Intel AMT CCM deactivated, holding ' + (AMTUnconfigureTimeout/1000) + ' seconds...');
                                 // We are ready to go, perform ACM activation.
                                 settings.xxTimer = setTimeout(function () { performAcmActivation(cmd, AcmActivationCompleted); }, AMTUnconfigureTimeout);
                             } else {
@@ -1177,7 +1177,7 @@ function activeToACMEx(fwNonce, dnsSuffix, digestRealm, uuid, allowedModes) {
                     if (mestate.controlMode == 1) {
                         amtMei.unprovision(1, function (status) {
                             if (status == 0) {
-                                console.log('Intel AMT CCM deactivated, holding 10 seconds...');
+                                console.log('Intel AMT CCM deactivated, holding ' + (AMTUnconfigureTimeout/1000) + ' seconds...');
                                 // We are ready to go, perform CCM activation.
                                 settings.xxTimer = setTimeout(function () { osamtstack.IPS_HostBasedSetupService_Setup(2, cmd.password, null, null, null, null, performCcmActivation); }, AMTUnconfigureTimeout);
                             } else {
